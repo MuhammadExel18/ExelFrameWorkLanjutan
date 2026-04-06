@@ -1,0 +1,114 @@
+import { useState } from "react";
+import frameworkData from "./framework.json";
+
+export default function FrameworkListSerchFilter() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTag, setSelectedTag] = useState("");
+
+  const _searchTerm = searchTerm.toLowerCase();
+  const filteredFrameworks = frameworkData.filter((framework) => {
+    const matchesSearch =
+      framework.name.toLowerCase().includes(_searchTerm) ||
+      framework.description.toLowerCase().includes(_searchTerm) ||
+      framework.details.developer.toLowerCase().includes(_searchTerm);
+
+    const matchesTag = selectedTag
+      ? framework.tags.includes(selectedTag)
+      : true;
+
+    return matchesSearch && matchesTag;
+  });
+  const allTags = [
+    ...new Set(frameworkData.flatMap((framework) => framework.tags)),
+  ];
+  return (
+    <div className="min-h-screen bg-gray-50 p-8 md:p-12">
+      {/* Header Section */}
+      <div className="max-w-5xl mx-auto mb-10">
+        <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+          Framework <span className="text-blue-600">Ecosystem</span>
+        </h1>
+        <p className="text-gray-500 mt-2">
+          Menjelajahi teknologi terbaik untuk pengembangan modern.
+        </p>
+      </div>
+
+      {/* Grid Layout */}
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+        <input
+          type="text"
+          name="searchTerm"
+          placeholder="Search framework..."
+          className="w-full p-2 border border-gray-300 rounded mb-4"
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+
+        <select
+          name="selectedTag"
+          className="w-full p-2 border border-gray-300 rounded mb-4"
+        >
+          <option value="">All Tags</option>
+          <option value="">All Tags</option>
+            {allTags.map((tag, index) => (
+              <option key={index} value={tag}>
+                {tag}
+              </option>
+            ))}
+        </select>
+        {filteredFrameworks.map((item) => (
+          <div
+            key={item.id}
+            className="group relative flex flex-col justify-between overflow-hidden bg-white border border-gray-100 p-6 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+          >
+            {/* Background Accent Decor */}
+            <div className="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 bg-blue-50 rounded-full transition-transform group-hover:scale-150 duration-500 opacity-50" />
+
+            <div className="relative">
+              <div className="flex justify-between items-start mb-4">
+                <h2 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+                  {item.name}
+                </h2>
+                <span className="text-[10px] uppercase tracking-widest font-semibold text-gray-400 bg-gray-50 px-2 py-1 rounded">
+                  {item.details.developer}
+                </span>
+              </div>
+
+              <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-2">
+                {item.description}
+              </p>
+            </div>
+
+            <div className="relative">
+              {/* Tags Section */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {item.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="bg-blue-50 text-blue-600 border border-blue-100 px-3 py-1 text-[11px] font-medium rounded-lg"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* Action Link */}
+              <div className="pt-4 border-t border-gray-50 flex justify-between items-center">
+                <a
+                  href={item.details.officialWebsite}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-semibold text-blue-600 flex items-center gap-1 group/link"
+                >
+                  Visit Website
+                  <span className="transition-transform group-hover/link:translate-x-1">
+                    →
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
