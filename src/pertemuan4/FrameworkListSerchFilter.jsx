@@ -2,17 +2,32 @@ import { useState } from "react";
 import frameworkData from "./framework.json";
 
 export default function FrameworkListSerchFilter() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedTag, setSelectedTag] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
+  // const [selectedTag, setSelectedTag] = useState("");
 
-  const _searchTerm = searchTerm.toLowerCase();
+  	const [dataForm, setDataForm] = useState({
+			searchTerm: "",
+			selectedTag: "",
+			/*Tambah state lain beserta default value*/
+			});
+		
+		/*Inisialisasi Handle perubahan nilai input form*/
+		const handleChange = (evt) => {
+			const { name, value } = evt.target;
+			setDataForm({
+				...dataForm,
+				[name]: value,
+			});
+		};
+
+  const _searchTerm = dataForm.searchTerm.toLowerCase();
   const filteredFrameworks = frameworkData.filter((framework) => {
     const matchesSearch =
       framework.name.toLowerCase().includes(_searchTerm) ||
       framework.description.toLowerCase().includes(_searchTerm) ||
       framework.details.developer.toLowerCase().includes(_searchTerm);
 
-    const matchesTag = selectedTag
+    const matchesTag = dataForm.selectedTag
       ? framework.tags.includes(selectedTag)
       : true;
 
@@ -40,7 +55,7 @@ export default function FrameworkListSerchFilter() {
           name="searchTerm"
           placeholder="Search framework..."
           className="w-full p-2 border border-gray-300 rounded mb-4"
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={handleChange}
         />
 
         <select
