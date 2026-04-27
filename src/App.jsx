@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Header from "./layouts/Header";
-import Sidebar from "./layouts/Sidebar";
+
 import Dashboard from "./pages/Dashboard";
 import Orders from "./pages/Orders";
 import Customers from "./pages/Customers";
@@ -10,17 +9,17 @@ import NotFound from "./pages/NotFound";
 import Error400 from "./pages/Error400";
 import Error401 from "./pages/Error401";
 import Error403 from "./pages/Error403";
+import { MainLayout } from "./layouts/MainLayout";  
+import AuthLayout from "./layouts/AuthLayout";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import Forgot from "./pages/auth/Forgot";
+
 
 function App() {
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-
-      <div className="flex-1 bg-gray-50">
-        <Header />
-
-        <main className="p-4">
           <Routes>
+            <Route element={<MainLayout />}>
             {/* Main Pages */}
             <Route path="/" element={<Dashboard />} />
             <Route path="/orders" element={<Orders />} />
@@ -33,10 +32,14 @@ function App() {
 
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
+            
+            </Route>   
+              <Route element={<AuthLayout/>}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register/>} />
+            <Route path="/forgot" element={<Forgot/>} />
+        </Route> 
           </Routes>
-        </main>
-      </div>
-    </div>
   );
 }
 
