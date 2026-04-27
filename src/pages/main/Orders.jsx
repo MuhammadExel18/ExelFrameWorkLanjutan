@@ -1,5 +1,5 @@
-import PageHeader from "../components/PageHeader";
-import { orders } from "../data/orders";
+import PageHeader from "../../components/PageHeader";
+import { orders } from "../../data/orders";
 
 export default function Orders() {
   return (

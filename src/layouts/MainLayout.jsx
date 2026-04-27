@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-export function MainLayout({ children }) {
+export default function MainLayout({ children }) {
     return (
         <div className="flex min-h-screen">
       <Sidebar />

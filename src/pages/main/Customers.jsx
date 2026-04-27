@@ -1,5 +1,5 @@
-import PageHeader from "../components/PageHeader";
-import { customers } from "../data/customers";
+import PageHeader from "../../components/PageHeader";
+import { customers } from "../../data/customers";
 
 export default function Customers() {
   return (
