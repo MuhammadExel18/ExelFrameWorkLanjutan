@@ -4,6 +4,7 @@ import {
   MdShoppingCart,
   MdPeople,
   MdError,
+  MdInventory,
 } from "react-icons/md";
 
 const Sidebar = () => {
@@ -16,46 +17,37 @@ const Sidebar = () => {
 
   return (
     <div className="w-64 h-screen border-r bg-white p-4 shadow-md">
-      <div className="mb-10 p-2 text-3xl font-extrabold text-green-600 tracking-tight">
+      <div className="mb-10 p-2 text-3xl font-extrabold text-green-600">
         Sedap<span className="text-orange-500">.</span>
       </div>
 
       <nav className="space-y-3">
-        {/* Dashboard */}
         <NavLink to="/" className={menuClass}>
           <MdSpaceDashboard size={24} />
-          <span className="text-sm">Dashboard</span>
+          <span>Dashboard</span>
         </NavLink>
 
-        {/* Orders */}
+        {/* ✅ FIX PRODUK */}
+        <NavLink to="/products" className={menuClass}>
+          <MdInventory size={24} />
+          <span>Produk</span>
+        </NavLink>
+
         <NavLink to="/orders" className={menuClass}>
           <MdShoppingCart size={24} />
-          <span className="text-sm">Order List</span>
+          <span>Order List</span>
         </NavLink>
 
-        {/* Customers */}
         <NavLink to="/customers" className={menuClass}>
           <MdPeople size={24} />
-          <span className="text-sm">Customers</span>
+          <span>Customers</span>
         </NavLink>
 
-        {/* 🔥 Divider */}
         <hr className="my-4" />
 
-        {/* 🔥 Error Menu */}
         <NavLink to="/error-400" className={menuClass}>
           <MdError size={24} />
-          <span className="text-sm">Error 400</span>
-        </NavLink>
-
-        <NavLink to="/error-401" className={menuClass}>
-          <MdError size={24} />
-          <span className="text-sm">Error 401</span>
-        </NavLink>
-
-        <NavLink to="/error-403" className={menuClass}>
-          <MdError size={24} />
-          <span className="text-sm">Error 403</span>
+          <span>Error 400</span>
         </NavLink>
       </nav>
     </div>
